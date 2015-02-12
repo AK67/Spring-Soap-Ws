@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://com/app/webservices/EventInsertion/Service" xmlns:sta="http://beans.stage.com" targetNamespace="http://com/app/webservices/schoolapp/service">  
+      <xsd:import namespace="http://beans.stage.com"  schemaLocation="EventDetails.xsd"/>  
+      <xsd:element name="SetEventRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                    <xsd:element name="eventdetails" type="sta:Event"/> 
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      <xsd:element name="SetEventResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="databaseresponse" type="xsd:string"/>  
+                     <xsd:element name="color" type="xsd:string" fixed="red"/>
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>
+</xsd:schema>  

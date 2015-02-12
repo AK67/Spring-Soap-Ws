@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p='http://www.springframework.org/schema/p'
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                                     http://www.springframework.org/schema/web-services  
+                                   http://www.springframework.org/schema/web-services/web-services-2.0.xsd  
+                                     http://www.springframework.org/schema/context  
+                                     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:component-scan base-package="com.app.webservices" />
+	<sws:annotation-driven />
+	
+	<!-- Load in application properties reference -->
+	<bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="location" value="classpath:application.properties"/>
+	</bean>
+	
+	<bean id="propertyHandler" class="com.app.loyalty.util.PropertiesUtil">
+		<property name="propertiesFileName" value="application.properties" />
+	</bean>
+	
+	<bean id="xmlParserHandler" class="com.app.loyalty.util.XMLParserUtil">
+	</bean>
+	
+	<bean id="applicationUtil" class="com.app.loyalty.util.ApplicationUtil">
+	</bean>
+	
+	<!-- Stage loyalty customer lookup service bean -->
+	<bean id="CustomerLookupDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/CustomerLookupServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="CustomerLookupDetailsService" />
+		<property name="serviceName" value="CustomerLookupDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty account lookup service bean -->
+	<bean id="AccountLookupDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/AccountLookupServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="AccountLookupDetailsService" />
+		<property name="serviceName" value="AccountLookupDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty coupon validation service bean -->
+	<bean id="CouponValidationDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/CouponValidationServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="CouponValidationDetailsService" />
+		<property name="serviceName" value="CouponValidationDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty enrollment direct service bean -->
+	<bean id="EnrollmentDirectDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/EnrollmentDirectServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="EnrollmentDirectDetailsService" />
+		<property name="serviceName" value="EnrollmentDirectDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty enrollment validation service bean -->
+	<bean id="EnrollmentValidationDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/EnrollmentValidationServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="EnrollmentValidationDetailsService" />
+		<property name="serviceName" value="EnrollmentValidationDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty profile update service bean -->
+	<bean id="ProfileUpdateDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/ProfileUpdateServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="ProfileUpdateDetailsService" />
+		<property name="serviceName" value="ProfileUpdateDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty reward tally service bean -->
+	<bean id="RewardTallyDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/RewardTallyServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="RewardTallyDetailsService" />
+		<property name="serviceName" value="RewardTallyDetailsService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty coupon detail service bean -->
+	<bean id="CouponDetailService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/CouponDetailServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="CouponDetailService" />
+		<property name="serviceName" value="CouponDetailService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty transaction history service bean -->
+	<bean id="TransactionHistoryService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/TransactionHistoryServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="TransactionHistoryService" />
+		<property name="serviceName" value="TransactionHistoryService" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<!-- Stage loyalty Inquiry Search service bean -->
+  <bean id="InquirySearchDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+    <property name="schemaCollection">
+      <bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+        <property name="inline" value="true" />
+        <property name="xsds">
+          <list>
+            <value>schemas/InquirySearchServiceOperations.xsd</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="portTypeName" value="InquirySearchDetailsService" />
+    <property name="serviceName" value="InquirySearchDetailsService" />
+    <property name="locationUri" value="/endpoints" />
+  </bean>
+
+
+  <!-- Stage loyalty Response Search service bean -->
+  <bean id="ResponseSearchDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+    <property name="schemaCollection">
+      <bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+        <property name="inline" value="true" />
+        <property name="xsds">
+          <list>
+            <value>schemas/ResponseSearchServiceOperations.xsd</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="portTypeName" value="ResponseSearchDetailsService" />
+    <property name="serviceName" value="ResponseSearchDetailsService" />
+    <property name="locationUri" value="/endpoints" />
+  </bean>
+
+
+
+  <!-- Stage loyalty Response Submit service bean -->
+  <bean id="ResponseSubmitDetailsService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+    <property name="schemaCollection">
+      <bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+        <property name="inline" value="true" />
+        <property name="xsds">
+          <list>
+            <value>schemas/ResponseSubmitServiceOperations.xsd</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="portTypeName" value="ResponseSubmitDetailsService" />
+    <property name="serviceName" value="ResponseSubmitDetailsService" />
+    <property name="locationUri" value="/endpoints" />
+  </bean>
+   
+    <!-- Stage loyalty services implementations -->
+   	<bean id="accountLookupService" class="com.app.services.impl.AccountLookupServiceImpl">
+   	</bean>   	
+   	<bean id="couponValidationService" class="com.app.services.impl.CouponValidationServiceImpl">   		
+   	</bean>
+   	<bean id="customerLookupService" class="com.app.services.impl.CustomerLookupServiceImpl">
+   	</bean>
+   	<bean id="enrollmentValidationService" class="com.app.services.impl.EnrollmentValidationServiceImpl">
+   	</bean>
+   	<bean id="enrollmentDirectService" class="com.app.services.impl.EnrollmentDirectServiceImpl">
+   	</bean>
+   	<bean id="profileUpdateService" class="com.app.services.impl.ProfileUpdateServiceImpl">
+   	</bean>
+   	<bean id="rewardTallyService" class="com.app.services.impl.RewardTallyServiceImpl">
+   	</bean>
+   	<bean id="couponDetailService" class="com.app.services.impl.CouponDetailServiceImpl">
+   	</bean>
+  	<bean id="transactionHistoryService" class="com.app.services.impl.TransactionHistoryServiceImpl">
+   	</bean>
+   	<bean id="inquirySearchService" class="com.app.services.impl.InquirySearchServiceImpl">
+  </bean>
+  <bean id="responseSearchService" class="com.app.services.impl.ResponseSearchServiceImpl">
+  </bean>
+  <bean id="responseSubmitService" class="com.app.services.impl.ResponseSubmitServiceImpl">
+  </bean>
+    
+    <!-- Initialization for data source -->
+      <!-- 
+   	<bean id="dataSource" 
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${stage.loyalty.db.driver}"/>
+      <property name="url" value="${stage.loyalty.db.url}"/>
+      <property name="username" value="${stage.loyalty.db.user}"/>
+      <property name="password" value="${stage.loyalty.db.pass}"/>
+   	</bean>
+   	   -->
+   	  
+   	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	        destroy-method="close">
+	        <property name="driverClass" value="${stage.loyalty.db.driver}" />
+	        <property name="jdbcUrl" value="${stage.loyalty.db.url}" />
+	        <property name="user" value="${stage.loyalty.db.user}" />
+	        <property name="password" value="${stage.loyalty.db.pass}" />
+	        <property name="maxPoolSize" value="${stage.loyalty.db.maxPoolSize}" />
+	        <property name="minPoolSize" value="${stage.loyalty.db.minPoolSize}" />
+	        <property name="maxStatements" value="${stage.loyalty.db.maxStatements}" />
+	        <property name="testConnectionOnCheckout" value="${stage.loyalty.db.testConnection}" />
+    </bean>
+     
+     
+     <!--   
+     <bean id="dataSource" 
+      class="oracle.jdbc.xa.client.OracleXADataSource">
+      <property name="URL" value="${stage.loyalty.db.url}"/>
+      <property name="user" value="${stage.loyalty.db.user}"/>
+      <property name="password" value="${stage.loyalty.db.pass}"/>
+      <property name="connectionCachingEnabled" value="true"/>
+   	</bean>
+   	    	
+   	 -->
+   	 
+    
+    <bean id="jdbcTemplateObject" class="org.springframework.jdbc.core.JdbcTemplate">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+     
+    <!-- Stage loyalty Data access layer defined --> 
+   	<bean id="stageLoyaltyDAO" class="${stage.loyalty.dao}">
+   		<property name="jdbcTemplateObject" ref="jdbcTemplateObject"/>   		
+   	</bean>
+    
+    
+	<!-- Web services Security configurations -->	
+	<!--  
+	<sws:interceptors>		
+		<bean id="securityInterceptor" class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
+			<property name="validationActions" value="Timestamp UsernameToken"/>
+		    <property name="securementActions" value="Timestamp UsernameToken"/>
+		    <property name="timestampPrecisionInMilliseconds" value="true"/>
+		    <property name="securementUsername" value="mojo"/>
+		    <property name="securementPassword" value="mojopass"/>
+		    <property name="securementPasswordType" value="PasswordText"/>
+		    <property name="securementUsernameTokenElements" value="Nonce Created"/>
+		    <property name="validationCallbackHandler" ref="callbackHandler" />
+		</bean>
+ 	</sws:interceptors>
+	<bean id="callbackHandler" class="org.springframework.ws.soap.security.wss4j.callback.SimplePasswordValidationCallbackHandler">
+		<property name="users">
+	         <props>
+	             <prop key="admin">secret</prop>
+	             <prop key="user">pass</prop>
+	         </props>
+	     </property>
+    </bean>
+     -->
+</beans>  

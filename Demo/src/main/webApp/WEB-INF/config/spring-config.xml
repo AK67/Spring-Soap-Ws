@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p='http://www.springframework.org/schema/p'
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                                     http://www.springframework.org/schema/web-services  
+                                   http://www.springframework.org/schema/web-services/web-services-2.0.xsd  
+                                     http://www.springframework.org/schema/context  
+                                     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:component-scan base-package="com.app.webservices" />
+	<sws:annotation-driven />
+	
+	
+	<bean id="EventEntryServicecomp"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>/WEB-INF/schema/EventInOut.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="EventEntryServicecomp" />
+		<property name="serviceName" value="EventEntryServicecomp" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+	
+	<bean id="EventRetrievalServicecomp"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>/WEB-INF/schema/EventRetrieval.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="EventRetrievalServicecomp" />
+		<property name="serviceName" value="EventRetrievalServicecomp" />
+		<property name="locationUri" value="/endpoints" />
+	</bean>
+   
+    <bean id="eventEntryService" class="com.app.webservices.impl.EventEntryServiceImpl">
+    </bean>
+     <bean id="evntdao" class="com.app.webservices.dao.EventInsertionJDBCTemplate">
+    </bean>
+    <bean id="eventRetrievalService" class="com.app.webservices.impl.EventRetrievalServiceImpl">
+    </bean>
+     <bean id="evntRetrievalDao" class="com.app.webservices.dao.EventRetrievalJDBCTemplate">
+    </bean>
+    <bean id="propertyHandler" class="com.app.webservices.util.PropertiesUtil">
+		<property name="propertiesFileName" value="application.properties" />
+	</bean>
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+	    <property name="messageFactory">
+	        <bean class="com.sun.xml.internal.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl"/>
+	    </property>
+	</bean>
+</beans>

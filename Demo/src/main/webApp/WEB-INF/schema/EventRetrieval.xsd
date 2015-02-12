@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://com/app/webservices/EventRetrieval/Service" xmlns:sta="http://beans.stage.com" targetNamespace="http://com/app/webservices/schoolapp/eventretrievalservice">  
+      <xsd:import namespace="http://beans.stage.com"  schemaLocation="EventDetails.xsd"/>  
+      <xsd:element name="GetEventRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                    <xsd:element name="eventId" type="xsd:integer"/> 
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      <xsd:element name="GetEventResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="databaseresponse" type="sta:Event"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>
+</xsd:schema>  
